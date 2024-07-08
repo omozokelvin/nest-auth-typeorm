@@ -16,7 +16,7 @@ describe('OrganisationService', () => {
 
   beforeEach(async () => {
     mockOrganisationRepository = {
-      find: jest.fn().mockResolvedValue([mockOrganisation]),
+      find: jest.fn().mockResolvedValue({ organisations: [mockOrganisation] }),
       findOne: jest.fn().mockResolvedValue(mockOrganisation),
     };
 
