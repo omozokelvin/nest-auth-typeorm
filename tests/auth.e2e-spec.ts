@@ -1,8 +1,14 @@
-import { HttpStatus, INestApplication, Logger } from '@nestjs/common';
+import {
+  HttpStatus,
+  INestApplication,
+  Logger,
+  UnprocessableEntityException,
+  ValidationError,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { testConfig } from 'src/_common/constants/test-config.constant';
 import { UserWithAccessToken } from 'src/auth/dto/user-registered.dto';
-import { setupApp } from 'src/main';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
@@ -22,7 +28,26 @@ describe('AuthController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
 
-    await setupApp(app);
+    app.useGlobalPipes(
+      new ValidationPipe({
+        validationError: {
+          target: false,
+          value: false,
+        },
+        exceptionFactory: (validationErrors: ValidationError[] = []) => {
+          const transformed = validationErrors.map((error) => {
+            const message = Object.values(error.constraints)[0];
+
+            return {
+              field: error.property,
+              message,
+            };
+          });
+
+          return new UnprocessableEntityException(transformed);
+        },
+      }),
+    );
 
     await app.init();
 
