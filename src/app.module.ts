@@ -29,6 +29,7 @@ import { OrganisationModule } from './organisation/organisation.module';
         const url = configService.get('DATABASE_URL', { infer: true });
         const isProduction =
           configService.get('NODE_ENV') === Environment.Production;
+        const isStaging = configService.get('NODE_ENV') === Environment.Staging;
 
         return {
           type: 'postgres',
@@ -36,6 +37,11 @@ import { OrganisationModule } from './organisation/organisation.module';
           autoLoadEntities: true,
           synchronize: !isProduction,
           // logging: !isProduction,
+          ...(isStaging && {
+            ssl: {
+              rejectUnauthorized: !isProduction,
+            },
+          }),
         };
       },
       inject: [ConfigService],
