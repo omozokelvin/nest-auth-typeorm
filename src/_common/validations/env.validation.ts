@@ -3,10 +3,9 @@ import { IsEnum, IsString, validateSync } from 'class-validator';
 
 export enum Environment {
   Development = 'development',
-  Testing = 'testing',
-  Production = 'production',
-  // for jest testing
+  Staging = 'staging',
   Test = 'test',
+  Production = 'production',
 }
 
 export class EnvironmentVariables {
