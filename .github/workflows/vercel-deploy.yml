@@ -27,6 +27,10 @@ jobs:
 
       - name: Run e2e tests
         run: npm run test:e2e
+        env:
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Vercel Deploy
         uses: amondnet/vercel-action@v25 #deploy

@@ -39,9 +39,7 @@ export class OrganisationService {
       .find({
         where: { users: user },
       })
-      .then((organisations) => {
-        return { organisations };
-      });
+      .then((organisations) => ({ organisations }));
   }
 
   async getUserOrganisationByOrgId(
