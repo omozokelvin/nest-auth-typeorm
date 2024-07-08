@@ -33,7 +33,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Vercel Deploy
-        uses: amondnet/vercel-action@v25 #deploy
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-args: '--prod'
