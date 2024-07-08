@@ -28,7 +28,7 @@ jobs:
       - name: Run e2e tests
         run: npm run test:e2e
         env:
-          NODE_ENV: ${{ secrets.NODE_ENV }}
+          NODE_ENV: test
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
