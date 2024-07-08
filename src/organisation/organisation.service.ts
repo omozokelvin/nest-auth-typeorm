@@ -35,13 +35,11 @@ export class OrganisationService {
   }
 
   async getUserOrganisations(user: User): Promise<GetOrganisationsDto> {
-    return this.organisationsRepository
-      .find({
-        where: { users: user },
-      })
-      .then((organisations) => {
-        return { organisations };
-      });
+    const organisations = await this.organisationsRepository.find({
+      where: { users: user },
+    });
+
+    return { organisations };
   }
 
   async getUserOrganisationByOrgId(
