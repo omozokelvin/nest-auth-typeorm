@@ -41,7 +41,7 @@ describe('OrganisationService', () => {
 
   it(`Users should only see data from all organisations they belong to`, () => {
     organisationService.getUserOrganisations(mockUser).then((result) => {
-      expect(result).toEqual([mockOrganisation]);
+      expect(result).toEqual({ organisations: [mockOrganisation] });
 
       // Ensure that the find method was called with the correct parameters
       expect(mockOrganisationRepository.find).toHaveBeenCalledWith({

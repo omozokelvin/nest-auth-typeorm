@@ -28,7 +28,8 @@ jobs:
       - name: Run e2e tests
         run: npm run test:e2e
 
-      - uses: amondnet/vercel-action@v25 #deploy
+      - name: Vercel Deploy
+        uses: amondnet/vercel-action@v25 #deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-args: '--prod'
