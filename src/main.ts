@@ -12,9 +12,7 @@ import {
 } from 'src/_common/validations/env.validation';
 import { AppModule } from './app.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
+export async function setupApp(app) {
   app.useGlobalPipes(
     new ValidationPipe({
       validationError: {
@@ -52,6 +50,12 @@ async function bootstrap() {
 
     SwaggerModule.setup('api', app, document);
   }
+}
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  await setupApp(app);
 
   await app.listen(process.env.PORT || 4000);
 }
