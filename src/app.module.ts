@@ -4,6 +4,7 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AllExceptionFilter } from 'src/_common/filters/all-exception.filter';
 import { ResponseInterceptor } from 'src/_common/interceptors/response.interceptor';
+import { AppController } from 'src/app.controller';
 import { UserModule } from 'src/user/user.module';
 import {
   Environment,
@@ -15,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 import { OrganisationModule } from './organisation/organisation.module';
 
 @Module({
+  controllers: [AppController],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
