@@ -16,9 +16,7 @@ describe('OrganisationService', () => {
 
   beforeAll(async () => {
     mockOrganisationRepository = {
-      find: jest.fn(
-        () => Promise.resolve({ organisations: [mockOrganisation] }).then,
-      ),
+      find: jest.fn().mockResolvedValue([mockOrganisation]),
       findOne: jest.fn().mockResolvedValue(mockOrganisation),
     };
 
@@ -43,9 +41,7 @@ describe('OrganisationService', () => {
 
   it(`Users should only see data from all organisations they belong to`, () => {
     organisationService.getUserOrganisations(mockUser).then((result) => {
-      expect(JSON.stringify(result)).toEqual(
-        JSON.stringify({ organisations: [mockOrganisation] }),
-      );
+      expect(result).toEqual({ organisations: [mockOrganisation] });
 
       // Ensure that the find method was called with the correct parameters
       expect(mockOrganisationRepository.find).toHaveBeenCalledWith({
