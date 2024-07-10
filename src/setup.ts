@@ -4,13 +4,11 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
   Environment,
   EnvironmentVariables,
 } from 'src/_common/validations/env.validation';
-import { AppModule } from './app.module';
 
 export async function setupApp(app) {
   app.useGlobalPipes(
@@ -51,13 +49,3 @@ export async function setupApp(app) {
     SwaggerModule.setup('api', app, document);
   }
 }
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
-  await setupApp(app);
-
-  await app.listen(process.env.PORT || 4000);
-}
-
-bootstrap();
