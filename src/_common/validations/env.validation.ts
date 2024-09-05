@@ -1,16 +1,15 @@
 import { plainToInstance } from 'class-transformer';
 import { IsEnum, IsString, validateSync } from 'class-validator';
 
-export enum Environment {
-  Development = 'development',
-  Staging = 'staging',
-  Test = 'test',
-  Production = 'production',
+export enum EnvironmentEnum {
+  dev = 'dev',
+  testing = 'testing',
+  prod = 'prod',
 }
 
 export class EnvironmentVariables {
-  @IsEnum(Environment)
-  NODE_ENV: Environment;
+  @IsEnum(EnvironmentEnum)
+  NODE_ENV: EnvironmentEnum;
 
   @IsString()
   DATABASE_URL: string;
@@ -19,7 +18,7 @@ export class EnvironmentVariables {
   JWT_SECRET: string;
 }
 
-export function validate(config: Record<string, unknown>) {
+export function validateEnv(config: Record<string, unknown>) {
   const validatedConfig = plainToInstance(EnvironmentVariables, config, {
     enableImplicitConversion: true,
   });

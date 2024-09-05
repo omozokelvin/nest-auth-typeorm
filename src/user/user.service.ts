@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 import { OrganisationService } from 'src/organisation/organisation.service';
 import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -24,7 +24,7 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     const { email, password, ...rest } = createUserDto;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
 
     // create a user
     const newUser = this.usersRepository.create({
@@ -57,7 +57,7 @@ export class UserService {
         throw new Error();
       }
 
-      const isValid = bcrypt.compareSync(password, user.password);
+      const isValid = bcryptjs.compareSync(password, user.password);
 
       if (!isValid) {
         throw new Error();

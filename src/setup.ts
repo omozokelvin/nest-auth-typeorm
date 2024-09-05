@@ -6,7 +6,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
-  Environment,
+  EnvironmentEnum,
   EnvironmentVariables,
 } from 'src/_common/validations/env.validation';
 
@@ -34,7 +34,7 @@ export async function setupApp(app) {
 
   const configService = app.get(ConfigService<EnvironmentVariables>);
 
-  const isProduction = configService.get('NODE_ENV') === Environment.Production;
+  const isProduction = configService.get('NODE_ENV') === EnvironmentEnum.Production;
 
   if (!isProduction) {
     const config = new DocumentBuilder()

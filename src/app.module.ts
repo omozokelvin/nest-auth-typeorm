@@ -7,9 +7,9 @@ import { ResponseInterceptor } from 'src/_common/interceptors/response.intercept
 import { AppController } from 'src/app.controller';
 import { UserModule } from 'src/user/user.module';
 import {
-  Environment,
+  EnvironmentEnum,
   EnvironmentVariables,
-  validate,
+  validateEnv,
 } from './_common/validations/env.validation';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -21,27 +21,21 @@ import { OrganisationModule } from './organisation/organisation.module';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      validate,
+      validate: validateEnv,
     }),
     UserModule,
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService<EnvironmentVariables>) => {
         const url = configService.get('DATABASE_URL', { infer: true });
         const isProduction =
-          configService.get('NODE_ENV') === Environment.Production;
-        const isStaging = configService.get('NODE_ENV') === Environment.Staging;
+          configService.get('NODE_ENV') === EnvironmentEnum.prod;
 
         return {
           type: 'postgres',
           url,
           autoLoadEntities: true,
           synchronize: !isProduction,
-          // logging: !isProduction,
-          ...(isStaging && {
-            ssl: {
-              rejectUnauthorized: !isProduction,
-            },
-          }),
+          logging: !isProduction,
         };
       },
       inject: [ConfigService],
