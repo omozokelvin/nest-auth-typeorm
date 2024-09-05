@@ -34,7 +34,7 @@ export async function setupApp(app) {
 
   const configService = app.get(ConfigService<EnvironmentVariables>);
 
-  const isProduction = configService.get('NODE_ENV') === EnvironmentEnum.Production;
+  const isProduction = configService.get('NODE_ENV') === EnvironmentEnum.prod;
 
   if (!isProduction) {
     const config = new DocumentBuilder()

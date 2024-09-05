@@ -1,8 +1,8 @@
 {
-  "name": "user-auth-hng-task-two",
+  "name": "nest-auth-typeorm",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "A simple nestjs app with typeOrm",
+  "author": "Kelvin Omozokpia",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
